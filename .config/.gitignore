@@ -3,6 +3,8 @@
 
 # But not these files...
 !.gitignore
+#!systemd/user/network-online.service
+#!systemd/user/default.target.wants/network-online.service
 #!script.pl
 #!template.latex
 # etc...

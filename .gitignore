@@ -7,3 +7,5 @@
 .bashrc
 .cache
 .lesshst
+.viminfo
+.vim/.netrwhist
