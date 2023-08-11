@@ -1,0 +1,6 @@
+# Fixing my bash prompt to not be stupid
+# http://beckism.com/2009/02/better_bash_prompt/
+# default is "\h:\W \u\$", which is lame
+# A better one is export PS1="\u@\h:\W \$", which gives me the user@host:path, but still needs color
+#export PS1="\n\u@\[\e[32m\]\h\[\e[0m\]:\W ---(\[\e[0m\]\d, \t\[\e[0m\])---\n\$"
+export PS1="\n\u@\[\e[32m\]\h\[\e[0m\]:\W\n\$"

@@ -1,0 +1,43 @@
+
+## Override systemctl to always be in the `--user` context.
+function systemctl () {
+  command systemctl --user $@
+}
+
+## Override journalctl to always be in the `--user` context.
+function journalctl () {
+  command journalctl --user $@
+}
+
+## Reload Systemd
+alias sdr='command systemctl --user daemon-reload'
+
+## Control Services
+alias scr='command systemctl --user restart'
+alias scs='command systemctl --user start'
+alias scx='command systemctl --user stop'
+
+## Show Unit logs since last start
+## https://www.reddit.com/r/systemd/comments/1577iq4/comment/jt3fibh/?context=3
+function slss () {
+  ## echo "${*: -1:1} $#"
+  #local unit="${*: -1:1}" # last parameter 
+  #if [ "$#" -gt 1 ]; then
+  #  local args="${*%${!#}}" # all parameters except the last
+  #fi
+
+  local unit="${1}"
+  shift
+  local args="${@}"
+
+  #echo "Unit: ${unit}"
+  #echo "Args: ${args}"
+
+  local id=$(systemctl show --value --property=InvocationID "${unit}")
+  if [ -z "${id}" ]; then
+    echo "Invalid Invocation ID, is the unit running?"
+    return 1
+  fi
+
+  journalctl INVOCATION_ID="${id}" + _SYSTEMD_INVOCATION_ID="${id}" ${args}
+}
