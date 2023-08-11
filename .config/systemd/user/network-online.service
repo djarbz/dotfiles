@@ -18,7 +18,10 @@ Documentation=man:nm-online(1)
 # time.
 
 Type=oneshot
-ExecStart=/usr/bin/nm-online -s -q
+# At least one of these should work depending if using NetworkManager or Systemd-Networkd
+ExecStartPre=-/usr/bin/nm-online -s -q
+ExecStartPre=-/usr/lib/systemd/systemd-networkd-wait-online
+ExecStart=ip -br addr
 RemainAfterExit=yes
 
 # Set $NM_ONLINE_TIMEOUT variable for timeout in seconds.
