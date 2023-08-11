@@ -21,6 +21,8 @@ alias scr='systemctl restart'
 alias scs='systemctl start'
 alias scx='systemctl stop'
 
+alias scc='systemd-analyze critical-chain'
+
 ## Show Unit logs since last start
 ## https://www.reddit.com/r/systemd/comments/1577iq4/comment/jt3fibh/?context=3
 function slss () {
