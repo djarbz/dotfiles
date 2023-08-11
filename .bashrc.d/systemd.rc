@@ -1,13 +1,13 @@
 
 ## Override systemctl to always be in the `--user` context.
-if [ "$(id -u)" == 0 ]; then
+if [ "$(id -u)" != 0 ]; then
   function systemctl () {
     command systemctl --user $@
   }
 fi
 
 ## Override journalctl to always be in the `--user` context.
-if [ "$(id -u)" == 0 ]; then
+if [ "$(id -u)" != 0 ]; then
   function journalctl () {
     command journalctl --user $@
   }
