@@ -1,21 +1,25 @@
 
 ## Override systemctl to always be in the `--user` context.
-function systemctl () {
-  command systemctl --user $@
-}
+if [ "$(id -u)" == 0 ]; then
+  function systemctl () {
+    command systemctl --user $@
+  }
+fi
 
 ## Override journalctl to always be in the `--user` context.
-function journalctl () {
-  command journalctl --user $@
-}
+if [ "$(id -u)" == 0 ]; then
+  function journalctl () {
+    command journalctl --user $@
+  }
+fi
 
 ## Reload Systemd
-alias sdr='command systemctl --user daemon-reload'
+alias sdr='systemctl daemon-reload'
 
 ## Control Services
-alias scr='command systemctl --user restart'
-alias scs='command systemctl --user start'
-alias scx='command systemctl --user stop'
+alias scr='systemctl restart'
+alias scs='systemctl start'
+alias scx='systemctl stop'
 
 ## Show Unit logs since last start
 ## https://www.reddit.com/r/systemd/comments/1577iq4/comment/jt3fibh/?context=3
