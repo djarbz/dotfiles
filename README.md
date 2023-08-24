@@ -11,6 +11,19 @@ git clone --bare https://github.com/djarbz/dotfiles.git $HOME/.dotfiles
 #git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
 ```
+Add the following to .bashrc to auto-load our scripts.
+```bash
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+  for rc in ~/.bashrc.d/*; do
+    if [ -f "$rc" ]; then
+      . "$rc"
+    fi
+  done
+fi
+
+unset rc
+```
 
 #### To ADD additional files/folders
 ```bash
