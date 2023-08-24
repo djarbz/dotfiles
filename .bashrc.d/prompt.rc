@@ -3,4 +3,6 @@
 # default is "\h:\W \u\$", which is lame
 # A better one is export PS1="\u@\h:\W \$", which gives me the user@host:path, but still needs color
 #export PS1="\n\u@\[\e[32m\]\h\[\e[0m\]:\W ---(\[\e[0m\]\d, \t\[\e[0m\])---\n\$"
-export PS1="\n\u@\[\e[32m\]\h\[\e[0m\]:\W\n\$"
+#export PS1="\n\u@\[\e[32m\]\h\[\e[0m\]:\W\n\$"
+#export PS1="\[\e[31m\][\[\e[m\]\[\e[38;5;172m\]\u\[\e[m\]@\[\e[38;5;153m\]\h\[\e[m\] \[\e[38;5;214m\]\W\[\e[m\]\[\e[31m\]]\[\e[m\]\$ "
+export PS1='\[\e[92;1;2;3m\]\D{%y-%m-%d} \[\e[23m\]\A \[\e[0;1;90m\][\[\e[91;3m\]\u\[\e[23;37m\]@\[\e[31m\]\H\[\e[90m\]] \[\e[37m\]\w\n\[\e[0;$(($?==0?92:91))m\]$ \[\e[0m\]'
