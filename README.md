@@ -35,3 +35,8 @@ dotfiles commit
 # Add the ssh public key to github
 dotfiles push
 ```
+
+#### To UPDATE changes from the server
+```bash
+dotfiles fetch
+```
