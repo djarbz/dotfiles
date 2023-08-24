@@ -13,3 +13,4 @@ whichfunc() {
 mkcd() { mkdir -p "$@" && cd "$_"; }
 
 alias cls='clear'
+export HISTTIMEFORMAT="%y/%m/%d "
