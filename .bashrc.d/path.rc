@@ -1,8 +1,13 @@
 # set PATH so it includes user's private bin if it exists
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
+if ! [[ "$PATH" =~ "$HOME/bin" ]]; then
+  [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
+fi
 
-# set PATH so it includes user's private bin if it exists
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+if ! [[ "$PATH" =~ "$HOME/.local/bin" ]]; then
+  [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+fi
+
+export PATH
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
