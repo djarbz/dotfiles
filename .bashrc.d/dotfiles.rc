@@ -4,4 +4,4 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 #dotfiles & disown
 
 # Update dotfiles every hour
-(crontab -l 2>/dev/null | grep -v '^[a-zA-Z]' | grep -v 'dotfiles'; echo '0 * * * * /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME fetch') | sort - | uniq - | crontab -
+(crontab -l 2>/dev/null | grep -v '^[a-zA-Z]' | grep -v 'dotfiles'; echo '0 * * * * /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME pull') | sort - | uniq - | crontab -

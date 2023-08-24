@@ -38,5 +38,5 @@ dotfiles push
 
 #### To UPDATE changes from the server
 ```bash
-dotfiles fetch
+dotfiles pull
 ```
