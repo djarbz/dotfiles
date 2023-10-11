@@ -1,10 +1,17 @@
 # set PATH so it includes user's private bin if it exists
-if ! [[ "$PATH" =~ "$HOME/bin" ]]; then
-  [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
+NEWBIN="$HOME/bin"
+if ! [[ "$PATH" =~ "$NEWBIN" ]]; then
+  [ -d "$NEWBIN" ] && PATH="$NEWBIN:$PATH"
 fi
 
-if ! [[ "$PATH" =~ "$HOME/.local/bin" ]]; then
-  [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+NEWBIN="$HOME/.local/bin"
+if ! [[ "$PATH" =~ "$NEWBIN" ]]; then
+  [ -d "$NEWBIN" ] && PATH="$NEWBIN:$PATH"
+fi
+
+NEWBIN="$HOME/go/bin"
+if ! [[ "$PATH" =~ "$NEWBIN" ]]; then
+  [ -d "$NEWBIN" ] && PATH="$NEWBIN:$PATH"
 fi
 
 export PATH
