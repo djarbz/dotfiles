@@ -1,0 +1,60 @@
+# if ! command -v vcsi &>/dev/null; then
+#     echo "vcsi is not installed. Installing..."
+#     if ! pip3 install vcsi; then
+#         echo "Failed to install vcsi."
+#     fi
+# fi
+
+
+#alias genthumb='for f in *.mp4; do vcs -U0 --height 200 --columns 6 --numcaps 24 --output "${f}.jpg" "${f}"; done'
+
+#alias genthumb='for f in *.mp4; do vcsi --grid 6x4 --num-samples 24 --frame-type key --metadata-font /usr/share/fonts/urw-base35/NimbusMonoPS-Italic.otf "${f}"; done'
+
+genthumb () {
+    if ! command -v vcsi &>/dev/null; then
+        echo "ERROR: vcsi is missing, install via 'pip3 install vcsi'."
+        return 1
+    fi
+    if ! command -v ffmpeg &>/dev/null; then
+        echo "ERROR: ffmpeg is missing!"
+        return 1
+    fi
+
+    # Check if any arguments are provided
+    if [ $# -eq 0 ]; then
+        local extensions=("mp4" "avi" "flv" "mkv" "webm")
+    else
+        local extensions=("$@")
+    fi
+
+    local find_args=()
+    for ext in "${extensions[@]}"; do
+        find_args+=(-iname "*.${ext}" -o)
+    done
+    find_args=("${find_args[@]:0:${#find_args[@]}-1}")  # Remove the trailing '-o'
+
+    # Loop through the files matching the specified extensions
+    find . -type f \( "${find_args[@]}" \) -exec bash -c '
+        for f; do
+            # Check if a thumbnail file exists
+            if [ -e "${f}.jpg" ]; then
+                echo "Contact Sheet already exists for ${f}"
+            else
+                # Generate thumbnail
+                vcsi --grid 6x4 --num-samples 24 --frame-type key \
+                  --metadata-font /usr/share/fonts/urw-base35/NimbusMonoPS-Italic.otf "${f}"
+            fi
+        done
+    ' bash {} +
+}
+
+
+
+cleanthumb () {
+  find . -name "*.jpg" -print0 | while read -rd $'\0' image; do
+    if [ ! -f "${image::-4}" ]; then
+      echo "Cleaning: ${image::-4}"
+      rm "${image}"
+    fi
+  done
+}
