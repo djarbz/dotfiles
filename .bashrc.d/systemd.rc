@@ -34,16 +34,18 @@ function slss () {
 
   local unit="${1}"
   shift
-  local args="${@}"
+  local args=("$@")
 
   #echo "Unit: ${unit}"
   #echo "Args: ${args}"
 
-  local id=$(systemctl show --value --property=InvocationID "${unit}")
+  local id
+  id=$(systemctl show --value --property=InvocationID "${unit}")
+  
   if [ -z "${id}" ]; then
     echo "Invalid Invocation ID, is the unit running?"
     return 1
   fi
 
-  journalctl INVOCATION_ID="${id}" + _SYSTEMD_INVOCATION_ID="${id}" ${args}
+  journalctl INVOCATION_ID="${id}" + _SYSTEMD_INVOCATION_ID="${id}" "${args[@]}"
 }

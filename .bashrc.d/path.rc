@@ -1,17 +1,17 @@
 # set PATH so it includes user's private bin if it exists
-NEWBIN="$HOME/bin"
-if ! [[ "$PATH" =~ "$NEWBIN" ]]; then
-  [ -d "$NEWBIN" ] && PATH="$NEWBIN:$PATH"
+NEW_BIN="$HOME/bin"
+if echo "$PATH" | grep -q -E "(^|:)$NEW_BIN(:|$)"; then
+  [ -d "$NEW_BIN" ] && PATH="$NEW_BIN:$PATH"
 fi
 
-NEWBIN="$HOME/.local/bin"
-if ! [[ "$PATH" =~ "$NEWBIN" ]]; then
-  [ -d "$NEWBIN" ] && PATH="$NEWBIN:$PATH"
+NEW_BIN="$HOME/.local/bin"
+if echo "$PATH" | grep -q -E "(^|:)$NEW_BIN(:|$)"; then
+  [ -d "$NEW_BIN" ] && PATH="$NEW_BIN:$PATH"
 fi
 
-NEWBIN="$HOME/go/bin"
-if ! [[ "$PATH" =~ "$NEWBIN" ]]; then
-  [ -d "$NEWBIN" ] && PATH="$NEWBIN:$PATH"
+NEW_BIN="$HOME/go/bin"
+if echo "$PATH" | grep -q -E "(^|:)$NEW_BIN(:|$)"; then
+  [ -d "$NEW_BIN" ] && PATH="$NEW_BIN:$PATH"
 fi
 
 export PATH

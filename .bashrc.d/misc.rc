@@ -5,12 +5,12 @@ cm() {
 
 # Where is a function defined?
 whichfunc() {
-  whence -v $1
-  type -a $1
+  whence -v "$1"
+  type -a "$1"
 }
 
 ## mkcd = create a directory and `cd` into it
-mkcd() { mkdir -p "$@" && cd "$_"; }
+mkcd() { mkdir -p "$@" && cd "$_" || return $?; }
 
 alias cls='clear'
 export HISTTIMEFORMAT="%y/%m/%d "
@@ -18,7 +18,7 @@ export HISTTIMEFORMAT="%y/%m/%d "
 ## config will cd into the given config directory or open a config file in vim.
 function config() {
   if [ -d "$HOME/.config/$1" ]; then
-    cd "$HOME/.config/$1"
+    cd "$HOME/.config/$1" || return $?
   elif [ -f "$HOME/.config/$1" ]; then
     vim "$HOME/.config/$1"
   else
