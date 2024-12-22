@@ -18,4 +18,4 @@
 
 # Ignore Tmux Plugins
 .config/tmux/plugins/*
-!.config/tmux/plugins/tpm
+!.config/tmux/plugins
