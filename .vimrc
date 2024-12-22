@@ -17,7 +17,10 @@ filetype plugin on
 filetype indent on
 
 " Turn syntax highlighting on.
-syntax on
+if has('syntax')
+  syntax on
+endif
+
 
 " Add numbers to each line on the left-hand side.
 "set number
@@ -97,15 +100,19 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 " Basically if you start in Insert mode and use Ctrl+Shift+V or right click paste with your mouse,
 " Vim detects that this came from a terminal and automatically sets paste mode, then unsets it once done,
 " so you don't lose remapped keys (which can't work in paste mode because its writing raw data) and you are back to a "sane" state when it is done.
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
+if has('termguicolors')
+  let &t_SI .= "\<Esc>[?2004h"
+  let &t_EI .= "\<Esc>[?2004l"
+endif
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
-function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
-endfunction
+if exists('*function')
+  function! XTermPasteBegin()
+    set pastetoggle=<Esc>[201~
+    set paste
+    return ""
+  endfunction
+endif
 
 
 " PLUGINS ---------------------------------------------------------------- {{{
