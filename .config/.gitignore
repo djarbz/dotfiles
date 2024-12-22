@@ -15,3 +15,7 @@
 # if the files to be tracked are in subdirectories
 #!*/a/b/file1.txt
 #!*/a/b/c/*
+
+# Ignore Tmux Plugins
+.config/tmux/plugins/*
+!.config/tmux/plugins/tpm
